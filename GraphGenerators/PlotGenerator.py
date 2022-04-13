@@ -1,8 +1,11 @@
 import ROOT
 
-def PlotGenerator(data,normalization,legend_default,layer_default,variable_name,path_filename,lower,upper,title):
+def PlotGenerator(data,normalization,legend_default,layer_default,variable_name,path_filename,lower,upper,title,nDivision):
     
     canvas=ROOT.TCanvas()
+    canvas.SetRightMargin(0.09)
+    canvas.SetLeftMargin(0.09)
+    canvas.SetBottomMargin(0.15)
     
     if legend_default==True:
     
@@ -12,7 +15,7 @@ def PlotGenerator(data,normalization,legend_default,layer_default,variable_name,
         legend=ROOT.TLegend(0.45,0.8,0.1,0.89)
         
 
-    text=ROOT.TPaveText(0.7,0.2,0.89,0.15, "NDC")
+    text=ROOT.TPaveText(0.7,0.2,0.89,0.30, "NDC")
 
     downPlot = ROOT.TH1D('','',100,lower,upper)
     ghostPlot = ROOT.TH1D('','',100,lower,upper)
@@ -24,6 +27,19 @@ def PlotGenerator(data,normalization,legend_default,layer_default,variable_name,
 
     downPlot.SetStats(0)
     ghostPlot.SetStats(0)
+    
+    
+    ghostPlot.GetXaxis().SetTitle(title)
+    ghostPlot.GetXaxis().CenterTitle()
+    ghostPlot.GetXaxis().SetTitleOffset(1.3)
+    ghostPlot.GetXaxis().SetTitleSize(0.05)
+    ghostPlot.GetXaxis().SetNdivisions(nDivision)
+    
+    downPlot.GetXaxis().SetTitle(title)
+    downPlot.GetXaxis().CenterTitle()
+    downPlot.GetXaxis().SetTitleOffset(1.3)
+    downPlot.GetXaxis().SetTitleSize(0.05)
+    downPlot.GetXaxis().SetNdivisions(nDivision)
 
     if (layer_default==True)&(normalization==True):
         
@@ -88,15 +104,7 @@ def PlotGenerator(data,normalization,legend_default,layer_default,variable_name,
     legend.AddEntry(downPlot,'True Tracks','f')
 
 
-    ghostPlot.GetXaxis().SetTitle(title)
-    ghostPlot.GetXaxis().CenterTitle()
-    ghostPlot.GetXaxis().SetTitleOffset(1.3)
-    ghostPlot.GetXaxis().SetTitleFont(62)
     
-    downPlot.GetXaxis().SetTitle(title)
-    downPlot.GetXaxis().CenterTitle()
-    downPlot.GetXaxis().SetTitleOffset(1.3)
-    downPlot.GetXaxis().SetTitleFont(62)
 
     
     legend.Draw()
