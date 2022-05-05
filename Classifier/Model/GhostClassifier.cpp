@@ -1019,7 +1019,7 @@ static const struct CatboostModel {
 
 /* Model applicator */
 double ApplyCatboostModel(
-    const std::vector<float>& features
+    const std::vector<double>& features
 ) {
     const struct CatboostModel& model = CatboostModelStatic;
 
@@ -1051,7 +1051,7 @@ double ApplyCatboostModel(
 }
 
 double ApplyCatboostModel(
-    const std::vector<float>& floatFeatures,
+    const std::vector<double>& floatFeatures,
     const std::vector<std::string>&
 ) {
     return ApplyCatboostModel(floatFeatures);
